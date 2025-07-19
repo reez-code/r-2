@@ -36,8 +36,8 @@
       .title {
         font-size: clamp(1.2em, 4vw, 2em);
         color: #2f4f2f;
-        text-shadow: 2px 2px 0px #000;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+        margin-top: 0px;
         animation: fadeInDown 1s ease-out;
         letter-spacing: 1px;
         line-height: 1.2;
@@ -46,7 +46,7 @@
       .subtitle {
         font-size: clamp(0.6em, 2vw, 0.8em);
         color: #228b22;
-        margin-bottom: 30px;
+        margin-bottom: 35px;
         animation: fadeInDown 1s ease-out 0.3s both;
       }
 
@@ -55,7 +55,7 @@
         display: inline-block;
         animation: slideInUp 1s ease-out 0.6s both;
         filter: drop-shadow(8px 8px 0px rgba(0, 0, 0, 0.3));
-        margin-top: clamp(20px, 5vw, 40px);
+        margin-top: clamp(50px, 12vw, 80px);
         transform: scale(clamp(0.7, 1.5vw, 1));
       }
 
@@ -193,7 +193,6 @@
         font-size: clamp(0.8em, 3vw, 1.2em);
         color: #2f4f2f;
         margin-top: 25px;
-        text-shadow: 2px 2px 0px #000;
         animation: fadeIn 2s ease-out 1.5s both;
       }
 
@@ -201,7 +200,6 @@
         font-size: clamp(0.6em, 2vw, 0.8em);
         color: #228b22;
         margin-top: 15px;
-        text-shadow: 1px 1px 0px #000;
         animation: fadeIn 2s ease-out 1.8s both;
       }
 
@@ -320,14 +318,8 @@
         width: 10%;
         height: 10%;
         background: #000;
-        box-shadow: 
-          200% 0 0 #000, 
-          0 200% 0 #000, 
-          100% 200% 0 #000, 
-          200% 200% 0 #000,
-          300% 200% 0 #000, 
-          100% 300% 0 #000, 
-          200% 300% 0 #000;
+        box-shadow: 200% 0 0 #000, 0 200% 0 #000, 100% 200% 0 #000,
+          200% 200% 0 #000, 300% 200% 0 #000, 100% 300% 0 #000, 200% 300% 0 #000;
       }
 
       @keyframes creeperBob {
@@ -345,27 +337,62 @@
         .container {
           padding: 10px;
         }
-        
+
+        .title {
+          margin-top: -25px;
+          margin-bottom: 2px;
+        }
+
+        .subtitle {
+          margin-bottom: 20px;
+        }
+
+        .cake-container {
+          margin-top: clamp(35px, 8vw, 50px);
+        }
+
         .floating-block {
           width: 15px;
           height: 15px;
         }
-        
+
         .floating-block:nth-child(3),
         .floating-block:nth-child(4) {
           display: none;
         }
       }
 
+      @media (max-width: 600px) {
+        .title {
+          margin-top: -35px;
+          margin-bottom: 0px;
+        }
+
+        .subtitle {
+          margin-bottom: 18px;
+        }
+
+        .cake-container {
+          margin-top: clamp(30px, 7vw, 45px);
+        }
+      }
+
       @media (max-width: 480px) {
         .title {
           letter-spacing: 0px;
+          margin-top: -50px;
+          margin-bottom: 0px;
         }
-        
+
+        .subtitle {
+          margin-bottom: 15px;
+        }
+
         .cake-container {
           transform: scale(0.8);
+          margin-top: 100px;
         }
-        
+
         .floating-block:nth-child(2) {
           display: none;
         }
@@ -449,13 +476,14 @@
           opacity: 0;
         }
       }
-
-
     </style>
   </head>
   <body>
     <div class="container">
-      <h1 class="title">HAPPY BIRTHDAY MUM <span class="heart">💖</span><span class="creeper-face"></span></h1>
+      <h1 class="title">
+        HAPPY BIRTHDAY MUM <span class="heart">💖</span
+        ><span class="creeper-face"></span>
+      </h1>
       <p class="subtitle">Level Up Another Year!</p>
 
       <div class="cake-container">
@@ -479,8 +507,6 @@
       <div class="floating-block diamond-block"></div>
       <div class="floating-block cake-block"></div>
       <div class="floating-block grass-block"></div>
-
-
     </div>
 
     <script>
