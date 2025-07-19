@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minecraft Birthday Cake</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(
+          135deg,
+          #87ceeb 0%,
+          #98fb98 50%,
+          #90ee90 100%
+        );
+        font-family: "Press Start 2P", monospace;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      .container {
+        text-align: center;
+        position: relative;
+      }
+
+      .title {
+        font-size: 2em;
+        color: #2f4f2f;
+        text-shadow: 2px 2px 0px #000;
+        margin-bottom: 10px;
+        animation: fadeInDown 1s ease-out;
+        letter-spacing: 2px;
+      }
+
+      .subtitle {
+        font-size: 0.8em;
+        color: #228b22;
+        margin-bottom: 30px;
+        animation: fadeInDown 1s ease-out 0.3s both;
+      }
+
+      .cake-container {
+        position: relative;
+        display: inline-block;
+        animation: slideInUp 1s ease-out 0.6s both;
+        filter: drop-shadow(8px 8px 0px rgba(0, 0, 0, 0.3));
+        margin-top: 40px;
+      }
+
+      .cake {
+        position: relative;
+        transform: translateY(-20px);
+        animation: float 3s ease-in-out infinite 1.2s;
+      }
+
+      .cake-layer {
+        margin: 0 auto;
+        position: relative;
+        image-rendering: pixelated;
+        border: 2px solid #000;
+      }
+
+      /* Cake texture patterns */
+      .cake-bottom {
+        width: 120px;
+        height: 30px;
+        background: linear-gradient(45deg, #8b4513 25%, transparent 25%),
+          linear-gradient(-45deg, #8b4513 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, #a0522d 75%),
+          linear-gradient(-45deg, transparent 75%, #a0522d 75%);
+        background-size: 8px 8px;
+        background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+        margin-bottom: -2px;
+      }
+
+      .cake-middle {
+        width: 120px;
+        height: 30px;
+        background: repeating-linear-gradient(
+            0deg,
+            #cd853f 0px,
+            #cd853f 4px,
+            #d2691e 4px,
+            #d2691e 8px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            #cd853f 0px,
+            #cd853f 4px,
+            #d2691e 4px,
+            #d2691e 8px
+          );
+        margin-bottom: -2px;
+      }
+
+      .cake-top {
+        width: 120px;
+        height: 30px;
+        background: repeating-conic-gradient(
+            #f4a460 0deg 90deg,
+            #deb887 90deg 180deg
+          ),
+          repeating-linear-gradient(
+            45deg,
+            #f4a460 0px,
+            #f4a460 6px,
+            #deb887 6px,
+            #deb887 12px
+          );
+        background-size: 8px 8px, 12px 12px;
+      }
+
+      /* Frosting layer */
+      .frosting {
+        width: 120px;
+        height: 8px;
+        background: repeating-linear-gradient(
+          90deg,
+          #fff 0px,
+          #fff 4px,
+          #f0f8ff 4px,
+          #f0f8ff 8px
+        );
+        border: 2px solid #000;
+        margin: -2px auto 8px;
+      }
+
+      .plate {
+        width: 140px;
+        height: 12px;
+        background: repeating-linear-gradient(
+          0deg,
+          #8b4513 0px,
+          #8b4513 4px,
+          #a0522d 4px,
+          #a0522d 8px
+        );
+        border-radius: 0;
+        margin: 0 auto;
+        border: 2px solid #000;
+        image-rendering: pixelated;
+      }
+
+      .candle {
+        width: 6px;
+        height: 30px;
+        background: repeating-linear-gradient(
+          0deg,
+          #dc143c 0px,
+          #dc143c 3px,
+          #b22222 3px,
+          #b22222 6px
+        );
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 1px solid #000;
+        image-rendering: pixelated;
+      }
+
+      .flame {
+        width: 10px;
+        height: 12px;
+        background: radial-gradient(
+          circle,
+          #ffd700 30%,
+          #ff4500 60%,
+          #ff0000 90%
+        );
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 1px solid #000;
+        image-rendering: pixelated;
+        animation: pixelFlicker 0.8s ease-in-out infinite alternate;
+      }
+
+      .message {
+        font-size: 1.2em;
+        color: #2f4f2f;
+        margin-top: 25px;
+        text-shadow: 2px 2px 0px #000;
+        animation: fadeIn 2s ease-out 1.5s both;
+      }
+
+      .love {
+        font-size: 0.8em;
+        color: #228b22;
+        margin-top: 15px;
+        text-shadow: 1px 1px 0px #000;
+        animation: fadeIn 2s ease-out 1.8s both;
+      }
+
+      /* Minecraft-style floating blocks */
+      .floating-block {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #000;
+        image-rendering: pixelated;
+        animation: floatBlock 4s ease-in-out infinite;
+      }
+
+      .grass-block {
+        background: linear-gradient(
+          to bottom,
+          #228b22 0%,
+          #228b22 30%,
+          #8b4513 30%,
+          #8b4513 100%
+        );
+      }
+
+      .diamond-block {
+        background: repeating-conic-gradient(
+          #00ced1 0deg 45deg,
+          #20b2aa 45deg 90deg
+        );
+        background-size: 10px 10px;
+      }
+
+      .cake-block {
+        background: repeating-linear-gradient(
+          45deg,
+          #f4a460 0px,
+          #f4a460 4px,
+          #deb887 4px,
+          #deb887 8px
+        );
+      }
+
+      .floating-block:nth-child(1) {
+        top: 15%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .floating-block:nth-child(2) {
+        top: 25%;
+        right: 15%;
+        animation-delay: 1s;
+      }
+      .floating-block:nth-child(3) {
+        top: 60%;
+        left: 5%;
+        animation-delay: 2s;
+      }
+      .floating-block:nth-child(4) {
+        top: 70%;
+        right: 10%;
+        animation-delay: 3s;
+      }
+
+      /* Particle effects */
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #ffd700;
+        border: 1px solid #000;
+        animation: particleFall 3s linear infinite;
+        image-rendering: pixelated;
+      }
+
+      .heart {
+        display: inline-block;
+        animation: heartBeat 1.5s ease-in-out infinite;
+        transform-origin: center;
+      }
+
+      @keyframes heartBeat {
+        0% {
+          transform: scale(1);
+        }
+        14% {
+          transform: scale(1.3);
+        }
+        28% {
+          transform: scale(1);
+        }
+        42% {
+          transform: scale(1.3);
+        }
+        70% {
+          transform: scale(1);
+        }
+      }
+
+      .creeper-face {
+        display: inline-block;
+        position: relative;
+        width: 30px;
+        height: 30px;
+        background: #00ff00;
+        border: 2px solid #000;
+        image-rendering: pixelated;
+        animation: creeperBob 2s ease-in-out infinite;
+        vertical-align: middle;
+        margin-left: 10px;
+      }
+
+      .creeper-face::before {
+        content: "";
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 3px;
+        height: 3px;
+        background: #000;
+        box-shadow: 6px 0 0 #000, 0 6px 0 #000, 3px 6px 0 #000, 6px 6px 0 #000,
+          9px 6px 0 #000, 3px 9px 0 #000, 6px 9px 0 #000;
+      }
+
+      @keyframes creeperBob {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-3px);
+        }
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(-20px);
+        }
+        50% {
+          transform: translateY(-30px);
+        }
+      }
+
+      @keyframes pixelFlicker {
+        0% {
+          transform: translateX(-50%) scale(1);
+          filter: hue-rotate(0deg);
+        }
+        100% {
+          transform: translateX(-50%) scale(1.1);
+          filter: hue-rotate(10deg);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes floatBlock {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        25% {
+          transform: translateY(-10px) rotate(5deg);
+        }
+        50% {
+          transform: translateY(-5px) rotate(0deg);
+        }
+        75% {
+          transform: translateY(-15px) rotate(-5deg);
+        }
+      }
+
+      @keyframes particleFall {
+        0% {
+          transform: translateY(-100vh) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">
+        HAPPY BIRTHDAY MUM <span class="heart">💖</span
+        ><span class="creeper-face"></span>
+      </h1>
+      <p class="subtitle">Level Up Another Year!</p>
+
+      <div class="cake-container">
+        <div class="cake">
+          <div class="candle">
+            <div class="flame"></div>
+          </div>
+          <div class="frosting"></div>
+          <div class="cake-layer cake-top"></div>
+          <div class="cake-layer cake-middle"></div>
+          <div class="cake-layer cake-bottom"></div>
+        </div>
+        <div class="plate"></div>
+      </div>
+
+      <div class="message">HAPPY BIRTHDAY!</div>
+      <div class="love">From the Overworld</div>
+
+      <!-- Floating Minecraft blocks -->
+      <div class="floating-block grass-block"></div>
+      <div class="floating-block diamond-block"></div>
+      <div class="floating-block cake-block"></div>
+      <div class="floating-block grass-block"></div>
+    </div>
+
+    <script>
+      // Add floating particles (XP orbs)
+      function createParticle() {
+        const particle = document.createElement("div");
+        particle.className = "particle";
+        particle.style.left = Math.random() * 100 + "vw";
+        particle.style.animationDelay = Math.random() * 2 + "s";
+        particle.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+        // Random colors for XP orbs
+        const colors = ["#FFD700", "#00FF00", "#00CED1", "#FF69B4"];
+        particle.style.background =
+          colors[Math.floor(Math.random() * colors.length)];
+
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+          particle.remove();
+        }, 5000);
+      }
+
+      // Create particles every 800ms
+      setInterval(createParticle, 800);
+
+      // Add click interaction - make a "mining" sound effect
+      document
+        .querySelector(".cake-container")
+        .addEventListener("click", function () {
+          const flame = document.querySelector(".flame");
+          if (flame.style.display !== "none") {
+            flame.style.display = "none";
+
+            // Add explosion effect
+            for (let i = 0; i < 8; i++) {
+              setTimeout(() => createParticle(), i * 100);
+            }
+
+            setTimeout(() => {
+              flame.style.display = "block";
+            }, 3000);
+          }
+        });
+
+      // Add creeper hiss sound effect simulation
+      document
+        .querySelector(".creeper-face")
+        .addEventListener("click", function () {
+          this.style.animation = "none";
+          this.style.transform = "scale(1.2)";
+          setTimeout(() => {
+            this.style.animation = "creeperBob 2s ease-in-out infinite";
+            this.style.transform = "scale(1)";
+          }, 500);
+        });
+    </script>
+  </body>
+</html>
