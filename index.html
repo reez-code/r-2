@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HAPPY BIRTHDAY MUM!</title>
+    <title>Minecraft Birthday Cake</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
       body {
         margin: 0;
-        padding: 0;
+        padding: 10px;
         background: linear-gradient(
           135deg,
           #87ceeb 0%,
@@ -21,25 +21,30 @@
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        overflow: hidden;
+        overflow-x: hidden;
+        box-sizing: border-box;
       }
 
       .container {
         text-align: center;
         position: relative;
+        max-width: 90vw;
+        padding: 20px;
+        box-sizing: border-box;
       }
 
       .title {
-        font-size: 2em;
+        font-size: clamp(1.2em, 4vw, 2em);
         color: #2f4f2f;
         text-shadow: 2px 2px 0px #000;
         margin-bottom: 10px;
         animation: fadeInDown 1s ease-out;
-        letter-spacing: 2px;
+        letter-spacing: 1px;
+        line-height: 1.2;
       }
 
       .subtitle {
-        font-size: 0.8em;
+        font-size: clamp(0.6em, 2vw, 0.8em);
         color: #228b22;
         margin-bottom: 30px;
         animation: fadeInDown 1s ease-out 0.3s both;
@@ -50,7 +55,8 @@
         display: inline-block;
         animation: slideInUp 1s ease-out 0.6s both;
         filter: drop-shadow(8px 8px 0px rgba(0, 0, 0, 0.3));
-        margin-top: 40px;
+        margin-top: clamp(20px, 5vw, 40px);
+        transform: scale(clamp(0.7, 1.5vw, 1));
       }
 
       .cake {
@@ -184,7 +190,7 @@
       }
 
       .message {
-        font-size: 1.2em;
+        font-size: clamp(0.8em, 3vw, 1.2em);
         color: #2f4f2f;
         margin-top: 25px;
         text-shadow: 2px 2px 0px #000;
@@ -192,7 +198,7 @@
       }
 
       .love {
-        font-size: 0.8em;
+        font-size: clamp(0.6em, 2vw, 0.8em);
         color: #228b22;
         margin-top: 15px;
         text-shadow: 1px 1px 0px #000;
@@ -202,8 +208,8 @@
       /* Minecraft-style floating blocks */
       .floating-block {
         position: absolute;
-        width: 20px;
-        height: 20px;
+        width: clamp(15px, 3vw, 20px);
+        height: clamp(15px, 3vw, 20px);
         border: 2px solid #000;
         image-rendering: pixelated;
         animation: floatBlock 4s ease-in-out infinite;
@@ -296,8 +302,8 @@
       .creeper-face {
         display: inline-block;
         position: relative;
-        width: 30px;
-        height: 30px;
+        width: clamp(20px, 4vw, 30px);
+        height: clamp(20px, 4vw, 30px);
         background: #00ff00;
         border: 2px solid #000;
         image-rendering: pixelated;
@@ -309,13 +315,19 @@
       .creeper-face::before {
         content: "";
         position: absolute;
-        top: 6px;
-        left: 6px;
-        width: 3px;
-        height: 3px;
+        top: 20%;
+        left: 20%;
+        width: 10%;
+        height: 10%;
         background: #000;
-        box-shadow: 6px 0 0 #000, 0 6px 0 #000, 3px 6px 0 #000, 6px 6px 0 #000,
-          9px 6px 0 #000, 3px 9px 0 #000, 6px 9px 0 #000;
+        box-shadow: 
+          200% 0 0 #000, 
+          0 200% 0 #000, 
+          100% 200% 0 #000, 
+          200% 200% 0 #000,
+          300% 200% 0 #000, 
+          100% 300% 0 #000, 
+          200% 300% 0 #000;
       }
 
       @keyframes creeperBob {
@@ -325,6 +337,37 @@
         }
         50% {
           transform: translateY(-3px);
+        }
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .container {
+          padding: 10px;
+        }
+        
+        .floating-block {
+          width: 15px;
+          height: 15px;
+        }
+        
+        .floating-block:nth-child(3),
+        .floating-block:nth-child(4) {
+          display: none;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .title {
+          letter-spacing: 0px;
+        }
+        
+        .cake-container {
+          transform: scale(0.8);
+        }
+        
+        .floating-block:nth-child(2) {
+          display: none;
         }
       }
 
@@ -406,14 +449,13 @@
           opacity: 0;
         }
       }
+
+
     </style>
   </head>
   <body>
     <div class="container">
-      <h1 class="title">
-        HAPPY BIRTHDAY MUM <span class="heart">💖</span
-        ><span class="creeper-face"></span>
-      </h1>
+      <h1 class="title">HAPPY BIRTHDAY MUM <span class="heart">💖</span><span class="creeper-face"></span></h1>
       <p class="subtitle">Level Up Another Year!</p>
 
       <div class="cake-container">
@@ -437,6 +479,8 @@
       <div class="floating-block diamond-block"></div>
       <div class="floating-block cake-block"></div>
       <div class="floating-block grass-block"></div>
+
+
     </div>
 
     <script>
